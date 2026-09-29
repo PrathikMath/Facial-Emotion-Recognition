@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f0e9">
+  <title>Emotion Detection | Project Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Emotion Detection project home">
+      <span class="brand-mark" aria-hidden="true">E<span>.</span></span>
+      <span>FIELD NOTES <b>/</b> ML PROJECT 01</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="#overview">Overview</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#run">Run locally</a>
+    </nav>
+    <span class="topbar-tag"><i></i> PROJECT GUIDE</span>
+  </header>
+
+  <main id="top">
+    <section class="hero" id="overview">
+      <div class="hero-copy">
+        <p class="eyebrow"><span>COMPUTER VISION</span><span class="eyebrow-line"></span><span>01 / 04</span></p>
+        <h1>Emotion<br><em>Detection</em></h1>
+        <p class="hero-lede">A webcam-based experiment in reading facial expressions with a compact convolutional neural network.</p>
+        <div class="hero-actions">
+          <a class="button button-dark" href="#pipeline">Explore the pipeline <span aria-hidden="true">↘</span></a>
+          <span class="hero-note">TensorFlow <b>·</b> OpenCV <b>·</b> FER-2013</span>
+        </div>
+        <div class="label-strip" id="emotion-labels" aria-label="Recognized emotion classes">
+          <span class="strip-label">7 OUTPUT CLASSES</span>
+          <span class="loading-text">Loading project facts…</span>
+        </div>
+      </div>
+      <figure class="hero-figure">
+        <div class="figure-head"><span>MODEL PERFORMANCE</span><span>TRAIN / VALIDATION</span></div>
+        <img src="{{ url_for('accuracy_plot') }}" alt="Training and validation accuracy and loss curves from the model">
+        <figcaption><span>TRAINING LOG / FER-2013</span><span>50 EPOCHS</span></figcaption>
+        <div class="figure-index">FIG. 01</div>
+      </figure>
+      <div class="hero-foot"><span>FACIAL EXPRESSION CLASSIFICATION</span><span>48 × 48 PIXEL INPUT</span><span>REAL-TIME INFERENCE</span></div>
+    </section>
+
+    <section class="status-band" aria-labelledby="status-title">
+      <div class="section-kicker"><span>01</span><span>LOCAL CHECK</span></div>
+      <div class="status-intro">
+        <h2 id="status-title">Project<br>readiness</h2>
+        <p>Live checks from this checkout. The dashboard explains the app; start the separate webcam script when you’re ready.</p>
+      </div>
+      <div class="status-list" id="readiness" aria-live="polite">
+        <div class="status-row"><span class="status-dot pending"></span><span>Checking local files…</span><span class="status-value">WAIT</span></div>
+      </div>
+    </section>
+
+    <section class="pipeline-section" id="pipeline">
+      <div class="section-heading">
+        <div class="section-kicker"><span>02</span><span>HOW IT WORKS</span></div>
+        <h2>From camera<br>to category.</h2>
+        <p>Each frame passes through a lightweight face-detection and classification loop. The result is a label, not a psychological assessment.</p>
+      </div>
+      <ol class="pipeline-list" id="pipeline-list">
+        <li><span class="step-number">01</span><div><h3>Capture</h3><p>A frame is read from the computer’s webcam.</p></div><span class="step-mark">◎</span></li>
+        <li><span class="step-number">02</span><div><h3>Find a face</h3><p>OpenCV’s Haar cascade locates faces in the grayscale frame.</p></div><span class="step-mark">⌗</span></li>
+        <li><span class="step-number">03</span><div><h3>Prepare input</h3><p>Each detected face is cropped and resized to 48 × 48 pixels.</p></div><span class="step-mark">▦</span></li>
+        <li><span class="step-number">04</span><div><h3>Classify</h3><p>The CNN scores seven expression classes; the highest score is shown.</p></div><span class="step-mark">↗</span></li>
+      </ol>
+    </section>
+
+    <section class="model-band">
+      <div class="model-heading">
+        <div class="section-kicker"><span>03</span><span>UNDER THE HOOD</span></div>
+        <h2>Small input.<br>Seven possible outputs.</h2>
+      </div>
+      <div class="model-facts">
+        <div class="model-fact"><strong>48<span>px</span></strong><span>GRAYSCALE INPUT</span></div>
+        <div class="model-fact"><strong>07</strong><span>EMOTION LABELS</span></div>
+        <div class="model-fact"><strong>63.2<span>%</span></strong><span>REPORTED TEST ACCURACY</span></div>
+      </div>
+      <p class="caveat">The reported baseline is 63.2% after 50 epochs. Performance can vary by setup, and expressions do not reliably reveal a person’s internal emotional state.</p>
+    </section>
+
+    <section class="run-section" id="run">
+      <div class="section-kicker"><span>04</span><span>TRY IT LOCALLY</span></div>
+      <div class="run-layout">
+        <div>
+          <h2>Start the<br>webcam demo.</h2>
+          <p>Run this from the repository root in PowerShell. The model weights and face detector need to be in <code>src</code>.</p>
+          <div class="requirements" id="requirements-list" aria-live="polite"></div>
+        </div>
+        <div class="command-panel">
+          <div class="command-head"><span>POWERSHELL</span><button id="copy-command" type="button" aria-label="Copy run command" title="Copy command"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="1.5"></rect><path d="M16 8V5.5A1.5 1.5 0 0 0 14.5 4h-9A1.5 1.5 0 0 0 4 5.5v9A1.5 1.5 0 0 0 5.5 16H8"></path></svg></button></div>
+          <pre><code id="run-command">Set-Location .\src
+python emotions.py --mode display</code></pre>
+          <div class="command-foot"><span>PRESS <kbd>Q</kbd> IN THE VIDEO WINDOW TO QUIT</span><span id="copy-feedback" aria-live="polite"></span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">E<span>.</span></span><span>EMOTION DETECTION</span></a><span>AN EDUCATIONAL COMPUTER VISION PROJECT</span></footer>
+</body>
+</html>

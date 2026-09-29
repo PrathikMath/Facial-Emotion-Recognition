@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.vscode/
+
+# Downloaded training data and pretrained weights
+src/data/
+src/fer2013.csv
+src/model.h5
+src/model.weights.h5
+src/plot.png
